@@ -15,12 +15,6 @@ import {
 import { FaInstagram, FaYoutube } from "react-icons/fa";
 import PriceTag from "../comps/PriceTag";
 
-const FUTURE_FIELDS = [
-  { key: "bodyType", label: "Kuzov turi" },
-  { key: "certificateNo", label: "Sertifikat raqami" },
-  { key: "ownersCount", label: "Egasi soni" },
-];
-
 const StatChip = ({ icon: Icon, label, value }) => {
   const hasValue = value && value !== "" && value !== "-";
   return (
@@ -51,14 +45,14 @@ const FullscreenGallery = ({ images, startIndex, onClose }) => {
     setIndex((prev) => (prev - 1 + images.length) % images.length);
 
   const handleDragEnd = (event, info) => {
-    const threshold = 40;
+    const threshold = 30;
     if (info.offset.x < -threshold) goNext();
     else if (info.offset.x > threshold) goPrev();
   };
 
   return (
     <motion.div
-      className="fixed inset-0 z-[110] bg-black flex flex-col justify-between"
+      className="fixed inset-0 z-[99999999] bg-black flex flex-col justify-between"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -66,7 +60,7 @@ const FullscreenGallery = ({ images, startIndex, onClose }) => {
     >
       {/* RASMNI KATTALASHTIRGANDAGI ALOHIDA TEPANGI BAR */}
       <div
-        className="w-full p-4 flex justify-between items-center z-20 bg-gradient-to-b from-black/80 to-transparent"
+        className="w-full p-4 flex justify-between items-center z-30 bg-gradient-to-b from-black/80 to-transparent relative"
         onClick={(e) => e.stopPropagation()}
       >
         {images.length > 1 ? (
@@ -77,54 +71,61 @@ const FullscreenGallery = ({ images, startIndex, onClose }) => {
           <div />
         )}
 
-        {/* ALOHIDA SHAKLDA AJRATILGAN CHI QISH TUGMASI */}
+        {/* ALOHIDA SHAKLDA AJRATILGAN CHIQISH TUGMASI */}
         <button
+          type="button"
           onClick={onClose}
-          className="w-11 h-11 rounded-full bg-slate-900/90 border border-white/30 flex items-center justify-center text-white active:scale-95 transition-transform shadow-2xl"
+          className="w-11 h-11 rounded-full bg-slate-900/90 border border-white/30 flex items-center justify-center text-white active:scale-95 transition-transform shadow-2xl cursor-pointer"
         >
           <LuX size={24} />
         </button>
       </div>
 
       {/* RASM KO'RINISHI */}
-      <motion.div
-        key={`fs-img-${index}`}
-        className="w-full flex-1 flex items-center justify-center p-2 relative"
-        drag="x"
-        dragConstraints={{ left: 0, right: 0 }}
-        dragElastic={0.2}
-        onDragEnd={handleDragEnd}
+      <div
+        className="w-full flex-1 flex items-center justify-center p-2 relative overflow-hidden"
         onClick={(e) => e.stopPropagation()}
-        initial={{ opacity: 0.5, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.2 }}
       >
-        <img
-          src={images[index]}
-          alt=""
-          className="max-w-full max-h-[80vh] object-contain pointer-events-none select-none rounded-md"
-          draggable={false}
-        />
-      </motion.div>
+        <motion.div
+          key={`fs-img-${index}`}
+          className="w-full h-full flex items-center justify-center"
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.2}
+          onDragEnd={handleDragEnd}
+          initial={{ opacity: 0.5, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.2 }}
+        >
+          <img
+            src={images[index]}
+            alt={`Gallery img ${index}`}
+            className="max-w-full max-h-[80vh] object-contain pointer-events-none select-none rounded-md"
+            draggable={false}
+          />
+        </motion.div>
+      </div>
 
       {/* TUGMALAR VA NUQTALAR */}
       {images.length > 1 && (
         <>
           <button
+            type="button"
             onClick={(e) => {
               e.stopPropagation();
               goPrev();
             }}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-slate-900/80 border border-white/20 flex items-center justify-center text-white active:scale-90 transition-transform shadow-xl z-20"
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-slate-900/80 border border-white/20 flex items-center justify-center text-white active:scale-90 transition-transform shadow-xl z-30 cursor-pointer"
           >
             <LuChevronLeft size={24} />
           </button>
           <button
+            type="button"
             onClick={(e) => {
               e.stopPropagation();
               goNext();
             }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-slate-900/80 border border-white/20 flex items-center justify-center text-white active:scale-90 transition-transform shadow-xl z-20"
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-slate-900/80 border border-white/20 flex items-center justify-center text-white active:scale-90 transition-transform shadow-xl z-30 cursor-pointer"
           >
             <LuChevronRight size={24} />
           </button>
@@ -132,7 +133,7 @@ const FullscreenGallery = ({ images, startIndex, onClose }) => {
       )}
 
       <div
-        className="w-full pb-6 pt-2 flex justify-center gap-2 z-20"
+        className="w-full pb-6 pt-2 flex justify-center gap-2 z-30"
         onClick={(e) => e.stopPropagation()}
       >
         {images.length > 1 &&
@@ -179,7 +180,7 @@ const CarDetailModal = ({ car, onClose }) => {
     setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
 
   const handleDragEnd = (event, info) => {
-    const threshold = 40;
+    const threshold = 30;
     if (info.offset.x < -threshold) goNext();
     else if (info.offset.x > threshold) goPrev();
   };
@@ -187,7 +188,7 @@ const CarDetailModal = ({ car, onClose }) => {
   return (
     <AnimatePresence>
       <motion.div
-        className="fixed inset-0 z-[100000000000] bg-[#f8fafc] w-full h-full overflow-y-auto"
+        className="fixed inset-0 z-[100000] bg-[#f8fafc] w-full h-full overflow-y-auto"
         initial={{ opacity: 0, y: "100%" }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: "100%" }}
@@ -198,20 +199,20 @@ const CarDetailModal = ({ car, onClose }) => {
           <div className="relative w-full h-[36vh] bg-slate-900 shrink-0 overflow-hidden">
             {images.length > 0 ? (
               <motion.div
-                key={`main-img-${activeIndex}`}
+                key={`main-img-box-${activeIndex}`}
                 className="w-full h-full cursor-pointer"
                 drag="x"
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={0.05}
                 onDragEnd={handleDragEnd}
-                onClick={() => setShowGallery(true)}
+                onTap={() => setShowGallery(true)}
                 initial={{ opacity: 0.8 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.15 }}
               >
                 <img
                   src={images[activeIndex]}
-                  alt={car.name}
+                  alt={car.name || "Avto rasm"}
                   className="w-full h-full object-cover pointer-events-none select-none"
                   draggable={false}
                 />
@@ -225,11 +226,11 @@ const CarDetailModal = ({ car, onClose }) => {
             {/* TEPADAGI GRADIENT OYNASI */}
             <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/60 to-transparent pointer-events-none z-10" />
 
-            {/* ALOHIDA AJRATILGAN CHI QISH TUGMASI (TEPA CHAPDA) */}
+            {/* ALOHIDA AJRATILGAN CHIQISH TUGMASI (TEPA CHAPDA) */}
             <button
               type="button"
               onClick={onClose}
-              className="absolute top-4 left-4 w-11 h-11 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-xl active:scale-90 transition-transform z-20"
+              className="absolute top-4 left-4 w-11 h-11 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-xl active:scale-90 transition-transform z-20 cursor-pointer"
             >
               <LuX size={22} />
             </button>
@@ -239,7 +240,7 @@ const CarDetailModal = ({ car, onClose }) => {
               <button
                 type="button"
                 onClick={() => setShowGallery(true)}
-                className="absolute top-4 right-4 w-11 h-11 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-xl active:scale-90 transition-transform z-20"
+                className="absolute top-4 right-4 w-11 h-11 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center text-white shadow-xl active:scale-90 transition-transform z-20 cursor-pointer"
               >
                 <LuExpand size={19} />
               </button>
@@ -256,7 +257,8 @@ const CarDetailModal = ({ car, onClose }) => {
               <div className="absolute bottom-4 left-4 flex gap-1.5 z-10">
                 {images.map((_, i) => (
                   <button
-                    key={`dot-${i}`}
+                    type="button"
+                    key={`dot-btn-${i}`}
                     onClick={() => setActiveIndex(i)}
                     className={`h-1.5 rounded-full transition-all ${
                       i === activeIndex ? "w-5 bg-white" : "w-1.5 bg-white/50"
@@ -349,7 +351,7 @@ const CarDetailModal = ({ car, onClose }) => {
 
             {/* TAVSIF */}
             {car.description && (
-              <div className="mb-30 ">
+              <div className="mb-8">
                 <div className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-2">
                   Tavsif
                 </div>
@@ -358,32 +360,20 @@ const CarDetailModal = ({ car, onClose }) => {
                 </p>
               </div>
             )}
-
-            {/* QO'SHIMCHA MAYDONLAR */}
-            {/* <div className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-2">
-              Qo'shimcha
-            </div>
-            <div className="grid grid-cols-2 gap-2.5">
-              {FUTURE_FIELDS.map((field) => (
-                <StatChip
-                  key={`future-${field.key}`}
-                  label={field.label}
-                  value={car[field.key]}
-                />
-              ))}
-            </div> */}
           </div>
         </div>
-      </motion.div>
 
-      {/* FULLSCREEN GALLERY MODAL */}
-      {showGallery && (
-        <FullscreenGallery
-          images={images}
-          startIndex={activeIndex}
-          onClose={() => setShowGallery(false)}
-        />
-      )}
+        {/* FULLSCREEN GALLERY MODAL */}
+        <AnimatePresence>
+          {showGallery && (
+            <FullscreenGallery
+              images={images}
+              startIndex={activeIndex}
+              onClose={() => setShowGallery(false)}
+            />
+          )}
+        </AnimatePresence>
+      </motion.div>
     </AnimatePresence>
   );
 };
