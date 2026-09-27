@@ -2,6 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { LuCar, LuPlus, LuGavel, LuCalculator } from "react-icons/lu";
 import { LiaCalculatorSolid } from "react-icons/lia";
+import { IoHome } from "react-icons/io5";
 
 const MenuBar = () => {
   return (
@@ -28,19 +29,19 @@ const MenuBar = () => {
           </span>
         </NavLink>
         <NavLink
-          to="/sell"
+          to="/"
           className="flex  flex-col items-center justify-center p-3 bg-white rounded-2xl border-3 border-slate-100 shadow-sm hover:shadow-md active:scale-95 transition-all duration-200 group"
         >
           {/* Ikonka orqa foni va o'zi */}
           <div
             className={`w-12 h-12 rounded-full flex items-center justify-center mb-2.5 bg-emerald-50 group-hover:scale-110 transition-transform duration-200`}
           >
-            <LuPlus className={`text-2xl text-slate-800`} />
+            <IoHome className={`text-2xl text-slate-800`} />
           </div>
 
           {/* Sarlavha */}
           <span className="text-sm font-semibold leading-3 text-slate-800 text-center">
-            Tez sotish
+            Uy savdo
           </span>
         </NavLink>
         <NavLink

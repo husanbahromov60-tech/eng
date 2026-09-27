@@ -41,7 +41,7 @@ const Navbar = () => {
           <Link to="/">
             <img
               className="h-13.5"
-              src={`https://i.ibb.co/4nB8X0P6/photo-1788431459911-0.webp`}
+              src={`https://res.cloudinary.com/rrgqyrfw/image/upload/v1790492147/tkbmx49fsz1hh6vd1uhd.webp`}
               alt="Logo"
             />
           </Link>
@@ -50,7 +50,7 @@ const Navbar = () => {
         {/* text */}
         <div>
           <p className="text-center leading-3.5 text-[15px] font-bold">
-            Tekshirilgani, To'g'ri Tanlov <br />
+            Eng arzonida, Eng yaxshi narx <br />
             <span className="text-[9px] text-slate-500 font-medium">
               Ishonchliy Bozor
             </span>
